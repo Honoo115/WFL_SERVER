@@ -1,11 +1,14 @@
 require("dotenv").config();
+
 const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 const helmet = require("helmet");
 const { NODE_ENV } = require("./config");
-
+const fetch = require('node-fetch');
+const pollRouter = require("./pollRouter/pollRouter");
 const app = express();
+
 
 const morganOption = NODE_ENV === "production";
 
@@ -14,7 +17,7 @@ app.use(helmet());
 app.get("/", (req, res) => {
   res.send("Hello, world!");
 });
-
+app.use(pollRouter)
 app.use(function errorHandler(error, req, res, next) {
   let response;
   if (NODE_ENV === "production") {
