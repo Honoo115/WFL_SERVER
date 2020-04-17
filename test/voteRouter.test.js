@@ -106,7 +106,7 @@ describe(`Endpoint Tests`, () => {
 
         });
 
-        it(`responds with 200 with a winning restaurant with a votes property`,
+        it(`responds with 200 with a list of restaurants`),
             () => {
                 let ourUUID = testVotes.poll_id;
                 return supertest(app)
@@ -121,33 +121,33 @@ describe(`Endpoint Tests`, () => {
 
 
 
-    });
-    describe("POST /options/:uuid", () => {
-        beforeEach(`seed the database`, () => {
+});
+describe("POST /options/:uuid", () => {
+    beforeEach(`seed the database`, () => {
 
-            return db.transaction(async trx => {
-                // AK: These both need to be inserted into the database separately.
-                await trx.into("polls").insert(testPolls);
-                await trx.into("restaurants").insert(testRestaurant);
-                await trx.into("votes").insert(testVotes);
-            });
-
+        return db.transaction(async trx => {
+            // AK: These both need to be inserted into the database separately.
+            await trx.into("polls").insert(testPolls);
+            await trx.into("restaurants").insert(testRestaurant);
+            await trx.into("votes").insert(testVotes);
         });
-        it(`responds with 201 when a vote is cast`, () => {
-            let newVote =
-            {
-                restaurant_id: 149359,
-                poll_id: "b0439de8-fc14-4f39-922a-ce2ac6663a6b",
-                user_ip: "9.19.39"
-            };
-            return supertest(app)
-                .post(`/votes`)
-                .send(newVote)
-                .expect(201)
-                .expect(res => {
-                    expect(res.body).to.have.property('id');
-                    console.log(res)
-                });
-        })
+
+    });
+    it(`responds with 201 when a vote is cast`, () => {
+        let newVote =
+        {
+            restaurant_id: 149359,
+            poll_id: "b0439de8-fc14-4f39-922a-ce2ac6663a6b",
+            user_ip: "9.19.39"
+        };
+        return supertest(app)
+            .post(`/votes`)
+            .send(newVote)
+            .expect(201)
+            .expect(res => {
+                expect(res.body).to.have.property('id');
+                console.log(res)
+            });
     })
+})
 });
