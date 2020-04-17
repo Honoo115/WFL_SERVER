@@ -1,3 +1,3 @@
-DROP TABLE votes;
-DROP TABLE resturants;
-DROP TABLE polls;
+DROP TABLE IF EXISTS votes;
+DROP TABLE IF EXISTS restaurants;
+DROP TABLE  IF EXISTS polls;

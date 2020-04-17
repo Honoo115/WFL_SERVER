@@ -2,14 +2,13 @@ const PollService = {
     getPolls(knex) {
         return knex.select("*").from("polls")
     },
-    getPoll(knex, id) {
+    getPoll(knex, uuid) {
         return knex
             .select("*")
             .from("polls")
-            .where("id", id)
+            .where("uuid", uuid)
             .first();
     },
-
     addPoll(knex, poll) {
         return knex
             .insert(poll)

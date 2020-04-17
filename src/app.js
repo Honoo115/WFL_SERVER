@@ -7,6 +7,8 @@ const helmet = require("helmet");
 const { NODE_ENV } = require("./config");
 const fetch = require('node-fetch');
 const pollRouter = require("./pollRouter/pollRouter");
+const restRouter = require("./restRouter/restRouter")
+const voteRouter = require("./voteRouter/voteRouter")
 const app = express();
 
 
@@ -17,7 +19,9 @@ app.use(helmet());
 app.get("/", (req, res) => {
   res.send("Hello, world!");
 });
+app.use(voteRouter)
 app.use(pollRouter)
+app.use(restRouter)
 app.use(function errorHandler(error, req, res, next) {
   let response;
   if (NODE_ENV === "production") {
