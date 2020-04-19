@@ -1,14 +1,18 @@
 const voteService = {
-    getVotes(knex) {
+    getVotes(knex, uuid) {
         return knex.select("*").from("votes").where("poll_id", uuid)
     },
-    addVote(knex, vote) {
-        return knexx
-            .insert(vote)
-            .into('votes')
-            .returning("*")
-            .then(votes => {
-                return votes[0]
-            })
+    addVote(db, voteToAdd) {
+        return (
+            db
+                .insert(voteToAdd)
+                .into('votes')
+                .returning('*')
+                .then(([vote]) => vote)
+                .then(vote => {
+                    return vote;
+                })
+        );
     }
 }
+module.exports = voteService

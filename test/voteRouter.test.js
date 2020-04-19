@@ -64,7 +64,36 @@ describe(`Endpoint Tests`, () => {
         return db.raw("TRUNCATE polls RESTART IDENTITY CASCADE;");
     });
 
-    describe("GET /results/:uuid", () => {
+    // describe("GET /results/:uuid", () => {
+
+    //     beforeEach(`seed the database`, () => {
+
+    //         return db.transaction(async trx => {
+    //             // AK: These both need to be inserted into the database separately.
+    //             await trx.into("polls").insert(testPolls);
+    //             await trx.into("restaurants").insert(testRestaurant);
+    //             await trx.into("votes").insert(testVotes);
+    //         });
+
+    //     });
+
+    //     it(`responds with 200 with a winning restaurant with a votes property`,
+    //         () => {
+    //             let ourUUID = testVotes.poll_id;
+    //             return supertest(app)
+    //                 .get(`/votes/${ourUUID}`)
+    //                 .expect(200)
+    //                 .expect(res => {
+    //                     expect(res.body[0].poll_id).to.eql(testVotes.poll_id);
+    //                     expect(res.body[0].restaurant_id).to.eql(testVotes.restaurant_id)
+    //                     expect(res.body[0].user_ip).to.eql(testVotes.user_ip);
+    //                 })
+    //         })
+
+
+
+    // });
+    describe("GET /votes/:uuid", () => {
 
         beforeEach(`seed the database`, () => {
 
@@ -77,24 +106,19 @@ describe(`Endpoint Tests`, () => {
 
         });
 
-        it(`responds with 200 with a winning restaurant with a votes property`,
-            () => {
-                let ourUUID = testVotes.poll_id;
-                return supertest(app)
-                    .get(`/votes/${ourUUID}`)
-                    .expect(200)
-                    .expect(res => {
-                        expect(res.body[0].poll_id).to.eql(testVotes.poll_id);
-                        expect(res.body[0].restaurant_id).to.eql(testVotes.restaurant_id)
-                        expect(res.body[0].user_ip).to.eql(testVotes.user_ip);
-                    })
-            })
-
-
-
+        it(`responds with 200 with votes`, () => {
+            let ourUUID = testVotes[0].poll_id;
+            return supertest(app)
+                .get(`/votes/${ourUUID}`)
+                .expect(200)
+                .expect(res => {
+                    expect(res.body[0].poll_id).to.eql(testVotes[0].poll_id);
+                    expect(res.body[0].restaurant_id).to.eql(testVotes[0].restaurant_id)
+                    expect(res.body[0].user_ip).to.eql(testVotes[0].user_ip);
+                })
+        })
     });
-    describe("GET /options/:uuid", () => {
-
+    describe("POST /votes/:uuid", () => {
         beforeEach(`seed the database`, () => {
 
             return db.transaction(async trx => {
@@ -105,49 +129,21 @@ describe(`Endpoint Tests`, () => {
             });
 
         });
-
-        it(`responds with 200 with a list of restaurants`),
-            () => {
-                let ourUUID = testVotes.poll_id;
-                return supertest(app)
-                    .get(`/votes/${ourUUID}`)
-                    .expect(200)
-                    .expect(res => {
-                        expect(res.body[0].poll_id).to.eql(testVotes.poll_id);
-                        expect(res.body[0].restaurant_id).to.eql(testVotes.restaurant_id)
-                        expect(res.body[0].user_ip).to.eql(testVotes.user_ip);
-                    })
-            })
-
-
-
-});
-describe("POST /options/:uuid", () => {
-    beforeEach(`seed the database`, () => {
-
-        return db.transaction(async trx => {
-            // AK: These both need to be inserted into the database separately.
-            await trx.into("polls").insert(testPolls);
-            await trx.into("restaurants").insert(testRestaurant);
-            await trx.into("votes").insert(testVotes);
-        });
-
-    });
-    it(`responds with 201 when a vote is cast`, () => {
-        let newVote =
-        {
-            restaurant_id: 149359,
-            poll_id: "b0439de8-fc14-4f39-922a-ce2ac6663a6b",
-            user_ip: "9.19.39"
-        };
-        return supertest(app)
-            .post(`/votes`)
-            .send(newVote)
-            .expect(201)
-            .expect(res => {
-                expect(res.body).to.have.property('id');
-                console.log(res)
-            });
+        it(`responds with 201 when a vote is cast`, () => {
+            let ourUUID = testVotes[0].poll_id;
+            let newVote =
+            {
+                restaurant_id: 149359,
+                poll_id: "b0439de8-fc14-4f39-922a-ce2ac6663a6b",
+                user_ip: "9.19.39"
+            };
+            return supertest(app)
+                .post(`/votes/${ourUUID}`)
+                .send(newVote)
+                .expect(201)
+                .expect(res => {
+                    expect(res.body).to.have.property('id');
+                });
+        })
     })
-})
 });
