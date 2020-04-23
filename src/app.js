@@ -19,6 +19,7 @@ app.use(helmet());
 app.get("/", (req, res) => {
   res.send("Hello, world!");
 });
+app.use(cors())
 app.use(voteRouter)
 app.use(pollRouter)
 app.use(restRouter)
@@ -34,6 +35,5 @@ app.use(function errorHandler(error, req, res, next) {
   res.status(500).json(response);
 });
 
-app.use(cors());
 
 module.exports = app;
