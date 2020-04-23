@@ -17,7 +17,7 @@ pollRouter
             })
             .catch(next)
     })
-    .post(jsonParser, (req, res, ) => {
+    .post(jsonParser, (req, res, next ) => {
         let restaurants = [];
 
         const { city, postal_code, uuid } = req.body; // Grab the uuid
@@ -30,15 +30,16 @@ pollRouter
                 if (city) searchStr = "city=" + city;
                 if (postal_code) searchStr = "zip=" + postal_code; // This is the only zip you'll ever see
                 fetch(openTableApi + searchStr)
-                    .then(res => res.json())
+                    .then(rez => rez.json())
                     .then(resJson => {
                         resJson.restaurants.forEach(restaurant => {
                             restaurant.poll_id = uuid
                             RestService.addRestaurant(req.app.get('db'), restaurant);
                         })
                     })
-                return res.send("Success");
+                return res.json(poll)
             })
+            .catch(next)
     })
 
 pollRouter

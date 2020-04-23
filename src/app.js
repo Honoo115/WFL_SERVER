@@ -14,7 +14,7 @@ const app = express();
 
 const morganOption = NODE_ENV === "production";
 
-app.use(morgan(morganOption));
+app.use(morgan("combined"));
 app.use(helmet());
 app.get("/", (req, res) => {
   res.send("Hello, world!");
