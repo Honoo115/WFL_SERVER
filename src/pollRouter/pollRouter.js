@@ -21,7 +21,7 @@ pollRouter
         let restaurants = [];
 
         let { city, postal_code, uuid } = req.body; // Grab the uuid
-            if ( postal_code = '' ){
+            if ( postal_code === '' ){
                 postal_code = 0
             }
         const newPoll = { city, postal_code, uuid }; // SHOULD MATCH UP WITH THE DATABASE
