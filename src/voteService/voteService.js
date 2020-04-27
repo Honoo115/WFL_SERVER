@@ -1,7 +1,7 @@
 const voteService = {
     getVotes(knex, uuid) {
         return knex.select("*").from("votes")
-        .join("restaurants","votes.restaraunt_id", "restaurants.id")
+        .join("restaurants","votes.restaurant_id", "restaurants.id")
         .where("votes.poll_id", uuid)
     },
     addVote(db, voteToAdd) {
