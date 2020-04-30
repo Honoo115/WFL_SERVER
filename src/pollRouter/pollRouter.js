@@ -11,19 +11,20 @@ const { v4: uuidv4 } = require('uuid');
 pollRouter
     .route('/poll')
     .get((req, res, next) => {
+        console.log(req.ip)
         PollService.getPolls(req.app.get('db'))
             .then(polls => {
                 res.json(polls)
             })
             .catch(next)
     })
-    .post(jsonParser, (req, res, next ) => {
+    .post(jsonParser, (req, res, next) => {
         let restaurants = [];
 
         let { city, postal_code, uuid } = req.body; // Grab the uuid
-            if ( postal_code === '' ){
-                postal_code = 0
-            }
+        if (postal_code === '') {
+            postal_code = 0
+        }
         const newPoll = { city, postal_code, uuid }; // SHOULD MATCH UP WITH THE DATABASE
 
         PollService.addPoll(req.app.get('db'), newPoll)
