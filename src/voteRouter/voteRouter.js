@@ -21,7 +21,7 @@ voteRouter
             .then(userIp => {
                 if (userIp.length > 0) {
                     console.log("USER ALEREADY VOTED", userIp)
-                    res.json({ msg: "You have already voted" })
+                    res.json({ msg: "You have already voted, click OK to redirect to current standings" })
                 }
                 else {
                     const newVote = { restaurant_id, poll_id }
