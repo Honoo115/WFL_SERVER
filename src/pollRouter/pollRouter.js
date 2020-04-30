@@ -11,7 +11,7 @@ const { v4: uuidv4 } = require('uuid');
 pollRouter
     .route('/poll')
     .get((req, res, next) => {
-        console.log(req.ip)
+
         PollService.getPolls(req.app.get('db'))
             .then(polls => {
                 res.json(polls)
@@ -19,6 +19,7 @@ pollRouter
             .catch(next)
     })
     .post(jsonParser, (req, res, next) => {
+        console.log(req.ip)
         let restaurants = [];
 
         let { city, postal_code, uuid } = req.body; // Grab the uuid
