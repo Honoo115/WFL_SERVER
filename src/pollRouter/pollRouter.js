@@ -19,7 +19,7 @@ pollRouter
             .catch(next)
     })
     .post(jsonParser, (req, res, next) => {
-        console.log(req.ip)
+        console.log("IP ADDRESS HERE ----->",req.ip)
         let restaurants = [];
 
         let { city, postal_code, uuid } = req.body; // Grab the uuid
