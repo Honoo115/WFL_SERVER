@@ -17,7 +17,15 @@ voteRouter
     })
     .post(jsonParser, (req, res) => {
         const { restaurant_id, poll_id } = req.body
-
+        voteService.getIP(req.app.get('db'), poll_id, req.ip)
+        .then(userIp => {
+            if(userIp.length > 0) {
+                console.log("USER ALEREADY VOTED", userIp)
+            }
+            else{
+                console.log("VOTE IS OPEN")
+            }
+        })
         const newVote = { restaurant_id, poll_id }
         newVote.user_ip = req.ip
         voteService.addVote(req.app.get('db'), newVote)
