@@ -19,7 +19,7 @@ voteRouter
         const { restaurant_id, poll_id } = req.body
 
         const newVote = { restaurant_id, poll_id }
-        newVote.user_ip = '9.13.39'
+        newVote.user_ip = req.ip
         voteService.addVote(req.app.get('db'), newVote)
             .then(vote => {
                 res
