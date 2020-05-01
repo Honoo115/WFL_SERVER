@@ -30,6 +30,7 @@ describe(`Endpoint Tests`, () => {
 
   // Before any test runs, clean the database
   before(`clean up database`, () => {
+    console.log(db)
     return db.raw("TRUNCATE polls RESTART IDENTITY CASCADE;");
   });
 
@@ -89,7 +90,7 @@ describe(`Endpoint Tests`, () => {
           expect(res.body.uuid).to.eql(testPolls[0].uuid);
           expect(res.body.city).to.eql(testPolls[0].city);
           expect(res.body.postal_code).to.eql(testPolls[0].postal_code);
-  
+
         });
     });
 
