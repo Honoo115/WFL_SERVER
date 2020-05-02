@@ -29,11 +29,14 @@ describe(`Endpoint Tests`, () => {
   });
 
   // Before any test runs, clean the database
-  before(`clean up database`, () => {
-    console.log(db)
-    return db.raw("TRUNCATE polls RESTART IDENTITY CASCADE;");
+  before(`connect to db`, () => {
+    console.log(process.env.TEST_DATABASE_URL) // like this
+    db = knex({
+      client: "pg",
+      connection: process.env.TEST_DATABASE_URL
+    });
+    app.set("db", db);
   });
-
   // After every test
   afterEach(`clean up database`, () => {
     return db.raw("TRUNCATE polls RESTART IDENTITY CASCADE;");
