@@ -13,15 +13,6 @@ describe(`Endpoint Tests`, () => {
     }
   ];
 
-  // This runs before any tests
-  before(`connect to db`, () => {
-    db = knex({
-      client: "pg",
-      connection: process.env.TEST_DATABASE_URL
-    });
-    app.set("db", db);
-  });
-
   // This runs after everything is done
   // AK: I would recommend keeping the after, before, beforeach etc at the top
   after(`disconnect from db`, () => {
@@ -30,7 +21,7 @@ describe(`Endpoint Tests`, () => {
 
   // Before any test runs, clean the database
   before(`connect to db`, () => {
-    console.log(process.env.TEST_DATABASE_URL) // like this
+    // console.log(process.env.TEST_DATABASE_URL) // like this
     db = knex({
       client: "pg",
       connection: process.env.TEST_DATABASE_URL
