@@ -1,5 +1,5 @@
-# The Following a to link, and documentation of the API.
 
+# The Following is a link to, and documentation of the API.
 
 ###### The Link to the live app can be found here! ==> (https://whats-for-lunch.now.sh) 
 
