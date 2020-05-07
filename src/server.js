@@ -7,5 +7,5 @@ const DB = knex({
 });
 app.set("db", DB);
 app.listen(PORT, () => {
-  console.log(`Server listening at http://localhost:${PORT}`);
+  (`Server listening at http://localhost:${PORT}`);
 });

@@ -21,7 +21,7 @@ describe(`Endpoint Tests`, () => {
 
   // Before any test runs, clean the database
   before(`connect to db`, () => {
-    // console.log(process.env.TEST_DATABASE_URL) // like this
+    // (process.env.TEST_DATABASE_URL) // like this
     db = knex({
       client: "pg",
       connection: process.env.TEST_DATABASE_URL
@@ -54,9 +54,9 @@ describe(`Endpoint Tests`, () => {
           expect(res.body[0].city).to.eql(testPolls[0].city);
           expect(res.body[0].postal_code).to.eql(testPolls[0].postal_code);
 
-          // console.log("res.body: " + JSON.stringify(res.body));
+          // ("res.body: " + JSON.stringify(res.body));
 
-          // console.log("testPolls: " + JSON.stringify(testPolls));
+          // ("testPolls: " + JSON.stringify(testPolls));
 
         });
     });

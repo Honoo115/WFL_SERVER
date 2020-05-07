@@ -20,7 +20,7 @@ voteRouter
         voteService.getIP(req.app.get('db'), poll_id, req.ip)
             .then(userIp => {
                 if (userIp.length > 0) {
-                    console.log("USER ALEREADY VOTED", userIp)
+                    ("USER ALEREADY VOTED", userIp)
                     res.json({ msg: "You have already voted, click OK to redirect to current standings" })
                 }
                 else {
